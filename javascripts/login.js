@@ -4,25 +4,32 @@ let todo_all = [];
 
 function login(email, password) {
     console.log('登入中請稍後 ...');
-    setTimeout(() => {
-        axios.post(`${APIurl}/users/sign_in`,
-            {
-                "user": {
-                    "email": email,
-                    "password": password
-                }
+    return axios.post(`${APIurl}/users/sign_in`,
+        {
+            "user": {
+                "email": email,
+                "password": password
             }
-        )
-            .then(res => {
-                axios.defaults.headers.common['Authorization'] = res.headers.authorization;
-                console.log(`登入成功`);
-                console.log(`歡迎 ${res.data.nickname} 回來`);
-            })
-            .catch(error => {
-                console.log(error.response);
-            })
-    }, 1000);
+        }
+    )
 }
+
+const input = async (mail, pwd) => {
+    try {
+        const res = await login(mail, pwd);
+        axios.defaults.headers.common['Authorization'] = res.headers.authorization
+        setTimeout(() => {
+            console.log(`登入成功`)
+            console.log(`歡迎 ${res.data.nickname} 回來`)
+        }, 1000);
+
+    } catch (error) {
+        // console.log(error);
+        throw new Error(error.response.data.message)
+    }
+}
+
+input('string@gmail.com', 'string123')
 
 function get_todo() {
     todo_all.splice(0, todo_all.length)
@@ -110,22 +117,12 @@ function todo_status(dataindex) {
         )
 }
 
-login('string@gmail.com', 'string123')
+// login('string@gmail.com', 'string123')
 
-setTimeout(() => {
-    get_todo()
-}, 2500);
-
-
-
-// const input = async (mail, pwd) => {
-//     try {
-//         const data = await login(mail, pwd);
-//         console.log(data);
-//     } catch (error) {
-
-//     }
-// }
+// setTimeout(() => {
+//     get_todo()
+// }, 2500);
 
 
-// input('string@gmail.com', 'string13')
+
+

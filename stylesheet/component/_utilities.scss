@@ -1,0 +1,17 @@
+.bgc-body {
+    background-color: #FFD370;
+}
+
+.banner {
+    max-width: 386px;
+}
+
+.bi-check2-square::before {
+    transform: rotate(-10deg);
+}
+
+@media (min-width: 992px) {
+    .sign_info input {
+        width: 75%;
+    }
+}

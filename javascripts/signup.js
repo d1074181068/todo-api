@@ -1,27 +1,106 @@
 const APIurl = 'https://todoo.5xcamp.us'
+const mail = document.querySelector('#usermail');
+const nickname = document.querySelector('#nickname');
+const password = document.querySelector('#password');
+const confirm_pwd = document.querySelector('#pwd-check');
+const sign_btn = document.querySelector('#signup_btn');
+const allinput = document.querySelectorAll('input');
+const alert_txt = document.querySelector('#alert_txt');
+const modal = document.querySelector('#signup_modal');
+const status_txt = document.querySelector('#status_txt');
+var myModal = new bootstrap.Modal(modal, {})
+
+reset();
+
+sign_btn.addEventListener('click', () => {
+    const format_isok = check();
+    if (format_isok === true) {
+        signup(mail, nickname, password)
+    } else {
+        return
+    }
+    console.log(132);
+})
+
 
 function signup(email, nickname, password) {
-    console.log('註冊中請稍後 ... ');
-    setTimeout(() => {
-        axios.post(`${APIurl}/users`,
-            {
-                "user": {
-                    "email": email,
-                    "nickname": nickname,
-                    "password": password
-                }
+    status_txt.textContent = '註冊中請稍後 ... ';
+    axios.post(`${APIurl}/users`,
+        {
+            "user": {
+                "email": email.value,
+                "nickname": nickname.value,
+                "password": password.value
             }
-        )
-            .then(data => {
-                console.log('註冊成功')
-                console.log(data);;
-            })
-            .catch(error => {
-                console.log(error.response.data.error[0]);
-            })
-    }, 1000);
+        }
+    )
+        .then(res => {
+            setTimeout(() => {
+                alert_txt.innerHTML = `註冊成功 ! 歡迎 ${res.data.nickname}光臨本網站 <br><br> 頁面即將在3秒鐘後跳轉至登入畫面 ...`;
+                myModal.show();
+                reset();
+                setTimeout(() => {
+                    document.location.href = './login.html'
+                }, 2000);
+            }, 1000);
+        })
+        .catch(error => {
+            console.log(error.response);
+            setTimeout(() => {
+                alert_txt.innerHTML = `很抱歉 您的 ${error.response.data.error[0]} 請重新註冊`;
+                myModal.show();
+                status_txt.textContent = '';
+                reset();
+            }, 1000);
+
+        })
+
+
 }
 
-signup('string1@gmail.com', 'string', 'string123')
+
+function check() {
+    let isnull = false;
+
+    for (const item of allinput) {
+        if (item.value == '') {
+            isnull = true;
+            break;
+        }
+    }
+    if (isnull === true) {
+        alert_txt.textContent = '您還有欄位尚未填寫 !';
+        myModal.show();
+        return;
+    }
+    if (mail.value.match('@') === null) {
+        alert_txt.textContent = 'Email 格式不正確 !';
+        myModal.show();
+        reset();
+        return;
+    }
+    if (password.value.trim().length < 6) {
+        alert_txt.textContent = '密碼必須6個字以上喔';
+        myModal.show();
+        password.value = '';
+        confirm_pwd.value = '';
+        return;
+    }
+    if (password.value !== confirm_pwd.value) {
+        alert_txt.textContent = '兩次密碼輸入不一致 !';
+        myModal.show();
+        password.value = '';
+        confirm_pwd.value = '';
+        return;
+    }
+    return true;
+}
+
+function reset() {
+    mail.value = '';
+    nickname.value = '';
+    password.value = '';
+    confirm_pwd.value = '';
+}
 
 

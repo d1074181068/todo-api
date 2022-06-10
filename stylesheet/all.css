@@ -7919,6 +7919,10 @@ fieldset:disabled .btn {
   width: 50% !important;
 }
 
+.w-60 {
+  width: 60% !important;
+}
+
 .w-75 {
   width: 75% !important;
 }
@@ -11970,9 +11974,9 @@ fieldset:disabled .btn {
           transform: rotate(-10deg);
 }
 
-@media (min-width: 992px) {
+@media (min-width: 996px) {
   .sign_info input {
-    width: 75%;
+    width: 60%;
   }
 }
 
@@ -11996,12 +12000,9 @@ fieldset:disabled .btn {
   outline: 1px;
 }
 
-@media (min-width: 992px) {
-  a {
-    margin-left: -100px;
-  }
-  button {
-    margin-left: -100px;
+@media (min-width: 996px) {
+  .sign-login-btn {
+    width: 60%;
   }
 }
 /*# sourceMappingURL=all.css.map */

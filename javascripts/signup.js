@@ -13,7 +13,8 @@ function signup(email, nickname, password) {
             }
         )
             .then(data => {
-                console.log('註冊成功');
+                console.log('註冊成功')
+                console.log(data);;
             })
             .catch(error => {
                 console.log(error.response.data.error[0]);
@@ -21,6 +22,6 @@ function signup(email, nickname, password) {
     }, 1000);
 }
 
-signup('string132@gmail.com', 'string', 'string321')
+signup('string1@gmail.com', 'string', 'string123')
 
 

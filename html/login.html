@@ -6,11 +6,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../stylesheet/all.css">
 
 </head>
 
-<body>
+<body class="bgc-body">
+
+    <div class="container p-5">
+        <div class="row row-cols-1 row-cols-lg-2 g-4 mt-4">
+            <div class="col py-lg-4 ps-lg-5 pe-lg-0  text-center">
+                <h2 class=" fw-bolder  h2 mb-4 ps-lg-4">
+                    <i class="bi bi-check2-square fw-bolder"></i>
+                    ONLINE TODO LIST
+                </h2>
+                <img class="banner d-none d-lg-inline-block" src="../login-bck.png" alt="">
+            </div>
+            <div class="login_info col d-flex flex-column justify-content-center align-items-start ps-lg-5">
+
+                <div class="mb-2 w-100">
+                    <h1 class="h4 fw-bolder text-lg-start text-center mb-4">最實用的線上代辦事項服務</h1>
+                    <label class="form-label me-auto fw-bolder" for="usermail">Email</label>
+                    <input type="email" id="usermail" class="form-control  px-3 py-2" placeholder="請輸入Email">
+                    <span class="login_hint">此欄位不可為空</span>
+                </div>
+                <div class="mb-2 w-100">
+                    <label class="form-label me-auto fw-bolder" for="password">密碼</label>
+                    <input type="password" id="password" class="form-control  px-3 py-2 mb-2" placeholder="請輸入密碼">
+                </div>
+                <div
+                    class="sign-login-btn d-flex flex-column justify-content-center align-items-center mx-auto mx-lg-0 mt-4">
+                    <button class="btn btn-dark fw-bolder py-2 px-5 mb-3" id="login_btn">登入</button>
+                    <a href="./signup.html" class="fw-bolder mb-3">註冊帳號</a>
+                    <span class="text-danger fw-bolder" id="status_txt"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="login_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">系統提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="alert_txt"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../javascripts/login.js"></script>
 </body>

@@ -1,9 +1,24 @@
 const APIurl = 'https://todoo.5xcamp.us'
-// let userToken = '';
-let todo_all = [];
+const allinput = document.querySelectorAll('input')
+const email = document.querySelector('#usermail')
+const password = document.querySelector('#password')
+const login_btn = document.querySelector('#login_btn')
+const alert_txt = document.querySelector('#alert_txt')
+const status_txt = document.querySelector('#status_txt')
+const modal = document.querySelector('#login_modal')
+const loginModal = new bootstrap.Modal(modal, {})
+
+login_btn.addEventListener('click', () => {
+    const check_ok = check();
+    if (check_ok === true) {
+        input(email.value, password.value)
+    } else {
+        return;
+    }
+})
 
 function login(email, password) {
-    console.log('登入中請稍後 ...');
+    status_txt.textContent = '登入中請稍後 ...';
     return axios.post(`${APIurl}/users/sign_in`,
         {
             "user": {
@@ -14,114 +29,61 @@ function login(email, password) {
     )
 }
 
+
 const input = async (mail, pwd) => {
     try {
         const res = await login(mail, pwd);
         axios.defaults.headers.common['Authorization'] = res.headers.authorization
+        localStorage.setItem('token', res.headers.authorization)
+        localStorage.setItem('name', res.data.nickname)
         setTimeout(() => {
-            console.log(`登入成功`)
-            console.log(`歡迎 ${res.data.nickname} 回來`)
+            status_txt.textContent = '';
+            alert_txt.innerHTML = `登入成功 ! 歡迎 ${res.data.nickname} 回來 <br><br> 即將跳轉待辦清單 ...`;
+            loginModal.show()
+            reset();
+            setTimeout(() => {
+                document.location.href = './list.html';
+            }, 2000);
         }, 1000);
 
     } catch (error) {
-        // console.log(error);
-        throw new Error(error.response.data.message)
+        setTimeout(() => {
+            status_txt.textContent = '';
+            alert_txt.textContent = '登入失敗，您的Email或密碼有誤 !  '
+            loginModal.show()
+            reset();
+        }, 1000);
+
     }
 }
 
-input('string@gmail.com', 'string123')
-
-function get_todo() {
-    todo_all.splice(0, todo_all.length)
-    axios.get(`${APIurl}/todos`)
-        .then(
-            res => {
-                console.log(res.data.todos);
-                res.data.todos.forEach(item => {
-                    todo_all.push(item)
-                });
-            }
-        ).catch(
-            error => {
-                console.log(error);
-            }
-        )
-}
-
-function add_todo(content) {
-    axios.post(`${APIurl}/todos`, {
-        "todo": {
-            "content": content
+function check() {
+    let isnull = false;
+    for (const item of allinput) {
+        if (item.value === '') {
+            isnull = true;
+            break;
         }
-    })
-        .then(
-            res => {
-                console.log(res);
-            }
-        ).catch(
-            error => {
-                console.log(error);
-            }
-        )
+    }
+    if (isnull === true) {
+        alert_txt.textContent = '您還有欄位尚未填寫 ! '
+        loginModal.show()
+        reset();
+        return;
+    }
+    if (email.value.match('@') === null) {
+        alert_txt.textContent = '您的Email格式不正確 ! '
+        loginModal.show()
+        reset();
+        return;
+    }
+    return true
 }
 
-function update_todo(dataindex, content) {
-    console.log('資料修改中 ... ');
-    setTimeout(() => {
-        axios.put(`${APIurl}/todos/${todo_all[dataindex - 1].id}`,
-            {
-                "todo": {
-                    "content": content
-                }
-            })
-            .then(
-                res => {
-                    console.log(res);
-                }
-            ).catch(
-                error => {
-                    console.log(error);
-                }
-            )
-    }, 1500);
+function reset() {
+    email.value = '';
+    password.value = '';
 }
-
-function del_todo(dataindex) {
-    console.log('資料刪除中 ... ');
-    setTimeout(() => {
-        axios.delete(`${APIurl}/todos/${todo_all[dataindex - 1].id}`)
-            .then(
-                res => {
-                    console.log(res);
-                    console.log(`第${dataindex}筆待辦 已刪除`);
-                }
-            ).catch(
-                error => {
-                    console.log(error.response);
-                }
-            )
-    }, 1500);
-
-}
-
-function todo_status(dataindex) {
-    axios.patch(`${APIurl}/todos/${todo_all[dataindex].id}/toggle`, {})
-        .then(
-            res => {
-                console.log(res);
-            }
-        ).catch(
-            error => {
-                console.log(error.response);
-            }
-        )
-}
-
-// login('string@gmail.com', 'string123')
-
-// setTimeout(() => {
-//     get_todo()
-// }, 2500);
 
 
 

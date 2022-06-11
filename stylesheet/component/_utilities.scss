@@ -2,6 +2,10 @@
     background-color: #FFD370;
 }
 
+.list_body {
+    background: linear-gradient(120deg #FFD370 53.33%, #FFD370 53.44%, #FFFFFF 53.45%, #FFFFFF 94.32%);
+}
+
 .banner {
     max-width: 386px;
 }
@@ -10,8 +14,39 @@
     transform: rotate(-10deg);
 }
 
+.login_hint {
+    color: #D87355;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.header_logout a {
+    color: $black;
+    text-decoration: none;
+
+    &:hover {
+        color: $danger;
+        text-decoration: underline;
+    }
+}
+
+.clear {
+    color: rgba($color: $black, $alpha: 0.6);
+    text-decoration: none;
+
+    &:hover {
+        color: $danger;
+        text-decoration: underline;
+    }
+}
+
+
 @media(min-width:996px) {
     .sign_info input {
+        width: 60%;
+    }
+
+    .login_info input {
         width: 60%;
     }
 }

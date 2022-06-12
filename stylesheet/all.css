@@ -12120,13 +12120,13 @@ fieldset:disabled .btn {
   transition: .3s;
 }
 
-.todo_list .content .todo_item .form-check-input.acitve {
-  text-decoration: line-through;
-}
-
 .todo_list .content .todo_item .form-check-label {
   -webkit-transition: .3s;
   transition: .3s;
+}
+
+.todo_list .content .todo_item .form-check-label.active {
+  text-decoration: line-through;
 }
 
 .todo_list .content .todo_item .form-check-label:hover {

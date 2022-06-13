@@ -17,15 +17,15 @@
             ONLINE TODO LIST
         </h2>
         <div class="header_logout d-flex justify-content-center  align-items-center pe-lg-4">
-            <h1 class="fw-bolder d-none d-lg-block h5 mb-0 me-3"><span id="user_account"
-                    class="d-inline-block me-2"></span>的待辦</h1>
+            <h1 class="fw-bolder d-lg-block h5 mb-0 me-3"><span id="user_account" class="d-inline-block me-2"></span>的待辦
+            </h1>
             <a href="#" class="text-center text-lg-start">登出</a>
         </div>
     </header>
     <div class="main p-4 col-12 col-md-8 col-lg-5 mx-auto">
         <div class="search-bar">
             <input type="text" id="search" class="form-control p-3" placeholder="新增待辦事項">
-            <button class="btn search_btn p-0"><i class="bi bi-plus-square-fill"></i></button>
+            <button class="btn search_btn p-0" id="search_btn"><i class="bi bi-plus-square-fill"></i></button>
         </div>
         <div class="todo_list">
             <ul class="nav nav_bar nav-fill justify-content-center" id="list_bar">
@@ -33,7 +33,7 @@
                 <li class="not_complete fw-bolder">待完成</li>
                 <li class="complete fw-bolder">已完成</li>
             </ul>
-            <div class="content">
+            <div class="content" id="list_items">
                 <!-- <div class="todo_item d-flex justify-content-between align-items-center mb-3" id="todo_item">
                     <div class="form-check ps-0 d-flex align-items-center">
                         <input class="form-check-input ms-2 me-3 " type="checkbox">
@@ -50,8 +50,23 @@
                 <a href="#" class="clear">清除已完成項目</a>
             </div>
         </div>
+    </div>
 
-
+    <div class="modal fade" id="list_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">系統提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="alert_txt"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 

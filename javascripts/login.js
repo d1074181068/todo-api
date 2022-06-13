@@ -34,8 +34,8 @@ const input = async (mail, pwd) => {
     try {
         const res = await login(mail, pwd);
         axios.defaults.headers.common['Authorization'] = res.headers.authorization
-        localStorage.setItem('token', res.headers.authorization)
-        localStorage.setItem('name', res.data.nickname)
+        sessionStorage.setItem('token', res.headers.authorization)
+        sessionStorage.setItem('name', res.data.nickname)
         setTimeout(() => {
             status_txt.textContent = '';
             alert_txt.innerHTML = `登入成功 ! 歡迎 ${res.data.nickname} 回來 <br><br> 即將跳轉待辦清單 ...`;
